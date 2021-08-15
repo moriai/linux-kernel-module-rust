@@ -11,5 +11,8 @@ $(src)/target/x86_64-unknown-none-linuxkernel/$(BUILD_MODE)/libhello_world.a: ca
 
 .PHONY: cargo_will_determine_dependencies
 
+#%.rust.o: target/x86_64-unknown-none-linuxkernel/$(BUILD_MODE)/lib%.a
+#	$(LD) -r -o $@ --whole-archive $<
+
 %.rust.o: target/x86_64-unknown-none-linuxkernel/$(BUILD_MODE)/lib%.a
-	$(LD) -r -o $@ --whole-archive $<
+	$(LD) -r -e init_module -o $@ $<
